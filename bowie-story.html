@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="A clean Medium-style retelling of the Bowie Space Dog story.">
+  <link rel="icon" href="data:,">
+  <title>Bowie: The Space Dog</title>
+  <style>
+    :root {
+      --ink: #f8fafc;
+      --body: #cbd5e1;
+      --muted: #94a3b8;
+      --line: rgba(255, 255, 255, .12);
+      --panel: rgba(17, 19, 27, .86);
+      --soft: rgba(255, 255, 255, .045);
+      --blue: #1d9bf0;
+      --red: #ff2438;
+      --orange: #ff8a2b;
+      --cyan: #71ecff;
+      --space: #050507;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(255, 138, 43, .14), transparent 32rem),
+        radial-gradient(circle at 88% 8%, rgba(113, 236, 255, .13), transparent 30rem),
+        linear-gradient(180deg, #050507 0%, #080914 45%, #030305 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .28;
+      background-image:
+        radial-gradient(circle at 18% 26%, rgba(255,255,255,.9) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 74% 18%, rgba(113,236,255,.8) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 48% 82%, rgba(255,138,43,.8) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 86% 70%, rgba(255,255,255,.65) 0 1px, transparent 1.6px);
+      background-size: 190px 190px, 260px 260px, 230px 230px, 310px 310px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 5, 7, .82);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      width: min(1120px, calc(100% - 32px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 178px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand b {
+      display: block;
+      line-height: 1.05;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: #d7dde8;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+
+    .nav a {
+      text-decoration: none;
+    }
+
+    .buy {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 194, 120, .55);
+      background: linear-gradient(135deg, var(--orange), var(--red), #9f0717);
+      color: #fff;
+      padding: 0 18px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .article-shell {
+      width: min(740px, calc(100% - 34px));
+      margin: 0 auto;
+      padding: 58px 0 72px;
+    }
+
+    .article-shell > header {
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(17, 19, 27, .78), rgba(0, 0, 0, .42));
+      padding: clamp(24px, 5vw, 42px);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .34);
+    }
+
+    .kicker {
+      color: var(--cyan);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 14px 0 18px;
+      font-family: Georgia, Cambria, "Times New Roman", serif;
+      font-size: clamp(42px, 8vw, 76px);
+      font-weight: 500;
+      line-height: .98;
+      letter-spacing: -.02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--body);
+      font-family: Georgia, Cambria, "Times New Roman", serif;
+      font-size: clamp(20px, 3.7vw, 26px);
+      line-height: 1.35;
+    }
+
+    .meta {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .meta img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 32px 0;
+      background: var(--line);
+    }
+
+    .article-copy {
+      font-family: Georgia, Cambria, "Times New Roman", serif;
+      font-size: clamp(20px, 3.4vw, 23px);
+      line-height: 1.6;
+    }
+
+    .article-copy p {
+      margin: 1.15em 0;
+      color: var(--body);
+    }
+
+    .article-copy strong {
+      font-weight: 700;
+    }
+
+    .article-copy a {
+      color: var(--cyan);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .article-copy h2 {
+      margin: 2.1em 0 .6em;
+      font-family: Georgia, Cambria, "Times New Roman", serif;
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -.01em;
+      color: #fff;
+    }
+
+    figure {
+      margin: 34px 0;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 8px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .42);
+    }
+
+    figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .tweet-name,
+    .tweet-body,
+    .token-grid b {
+      color: #fff;
+    }
+
+    .tweet-card {
+      margin: 34px 0;
+      border: 1px solid rgba(113, 236, 255, .22);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(17, 19, 27, .94), rgba(0, 0, 0, .72));
+      padding: 18px;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      box-shadow: 0 22px 62px rgba(0, 0, 0, .36);
+    }
+
+    .tweet-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #000;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .avatar.maye {
+      background: rgba(255, 138, 43, .18);
+      border: 1px solid rgba(255, 138, 43, .4);
+      color: #ffd1aa;
+    }
+
+    .tweet-name {
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .verified {
+      color: var(--blue);
+      font-size: 15px;
+    }
+
+    .handle {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tweet-body {
+      margin: 18px 0 0;
+      font-size: 20px;
+      line-height: 1.42;
+    }
+
+    .tweet-time {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tweet-actions {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .open-link {
+      margin-top: 14px;
+      display: inline-flex;
+      color: var(--cyan);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .video-card {
+      margin: 36px 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 138, 43, .24);
+      border-radius: 14px;
+      background: #0b0d12;
+      color: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .video-card img {
+      width: 100%;
+      display: block;
+      opacity: .86;
+    }
+
+    .video-copy {
+      padding: 18px;
+    }
+
+    .video-copy b {
+      display: block;
+      font-size: 19px;
+    }
+
+    .video-copy p {
+      margin: 8px 0 0;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .video-copy a {
+      margin-top: 14px;
+      display: inline-flex;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--orange), var(--red), #9f0717);
+      color: #fff;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .token-note {
+      margin: 38px 0;
+      border: 1px solid rgba(255, 36, 56, .25);
+      border-radius: 14px;
+      background: rgba(255, 36, 56, .055);
+      padding: 18px;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .token-note h3 {
+      margin: 0 0 14px;
+      color: var(--red);
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .token-grid div {
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .045);
+      padding: 14px;
+    }
+
+    .token-grid span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .token-grid b {
+      display: block;
+      margin-top: 4px;
+      font-size: 28px;
+    }
+
+    .bottom-actions {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .bottom-actions a {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(113, 236, 255, .32);
+      padding: 0 17px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .bottom-actions a:first-child {
+      border-color: rgba(255, 194, 120, .55);
+      background: linear-gradient(135deg, var(--orange), var(--red), #9f0717);
+      color: #fff;
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        width: min(100% - 24px, 1120px);
+        min-height: 58px;
+        gap: 10px;
+      }
+
+      .brand {
+        min-width: 132px;
+      }
+
+      .brand span {
+        display: none;
+      }
+
+      .nav {
+        order: 3;
+        width: 100%;
+        margin: 0;
+        padding: 0 0 10px;
+        gap: 14px;
+        font-size: 12px;
+      }
+
+      .buy {
+        margin-left: auto;
+        min-height: 36px;
+        padding: 0 13px;
+        font-size: 13px;
+      }
+
+      .article-shell {
+        padding-top: 38px;
+      }
+
+      .tweet-body {
+        font-size: 18px;
+      }
+
+      .tweet-actions {
+        gap: 10px;
+        overflow-x: auto;
+      }
+
+      .token-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="spcx-space-dog-landing.html#top" class="brand" aria-label="Bowie home">
+        <img src="assets/bowie-logo.png" alt="Bowie logo">
+        <span><b>Bowie</b><span>$BOWIE rewards SPCX</span></span>
+      </a>
+      <div class="nav">
+        <a href="spcx-space-dog-landing.html#story">Story</a>
+        <a href="spcx-space-dog-landing.html#timeline">Timeline</a>
+        <a href="spcx-space-dog-landing.html#rewards">Rewards</a>
+        <a href="spcx-space-dog-landing.html#how-to-buy">How To Buy</a>
+        <a href="bowie-story.html"><strong>Article</strong></a>
+      </div>
+      <a class="buy" href="spcx-space-dog-landing.html#how-to-buy">Buy $BOWIE</a>
+    </div>
+  </nav>
+
+  <main class="article-shell">
+    <header>
+      <div class="kicker">Bowie Space Dog</div>
+      <h1>Bowie: The Space Dog</h1>
+      <p class="subtitle">The meme origin story that connects Elon lore, a childhood dachshund, David Bowie, and a Roadster sent into space.</p>
+      <div class="meta">
+        <img src="assets/bowie-logo.png" alt="Bowie avatar">
+        <div>
+          <strong>Bowie Space Dog</strong><br>
+          <span>Clean article version - external media links preserved</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <article class="article-copy">
+      <p>
+        It starts with a little dog joke and ends somewhere much bigger: orbit. Around Elon Musk, dogs, rockets, music, and internet culture have a way of collapsing into the same timeline.
+      </p>
+
+      <div class="tweet-card">
+        <div class="tweet-head">
+          <div class="avatar maye">M</div>
+          <div>
+            <div class="tweet-name">Maye Musk <span class="verified">✓</span></div>
+            <div class="handle">@mayemusk</div>
+          </div>
+        </div>
+        <p class="tweet-body">I'd tell people "watch out for the dog!", then they'd see him and laugh, then he would bite them on the ankle.</p>
+        <div class="tweet-time">10:30 PM · Mar 19, 2023 · 4.9M Views</div>
+        <div class="tweet-actions"><span>2.5K replies</span><span>2.1K reposts</span><span>61K likes</span><span>228 bookmarks</span></div>
+        <a class="open-link" href="https://x.com/mayemusk" target="_blank" rel="noopener">Open Maye Musk on X</a>
+      </div>
+
+      <div class="tweet-card">
+        <div class="tweet-head">
+          <div class="avatar">X</div>
+          <div>
+            <div class="tweet-name">Elon Musk <span class="verified">✓</span></div>
+            <div class="handle">@elonmusk</div>
+          </div>
+        </div>
+        <p class="tweet-body">Once had a Great Dane named Hamlet, because Hamlet was a great Dane</p>
+        <div class="tweet-time">2:33 AM · Apr 29, 2019</div>
+        <div class="tweet-actions"><span>66 replies</span><span>93 reposts</span><span>1.2K likes</span><span>7 bookmarks</span></div>
+        <a class="open-link" href="https://x.com/elonmusk" target="_blank" rel="noopener">Open Elon Musk on X</a>
+      </div>
+
+      <p>
+        Elon Musk's mom had previously mentioned that he had a <strong>dachshund</strong> growing up. The Bowie angle gives that childhood dog story a name and a surprisingly good meme engine.
+      </p>
+
+      <figure>
+        <img src="assets/bowie-elon-workshop.png" alt="Elon and Bowie in a workshop with a rocket prototype">
+        <figcaption>Article media placement for the childhood-dog origin thread.</figcaption>
+      </figure>
+
+      <p>
+        Walter Isaacson's biography gave the lore a sharper outline: young Elon had a dachshund named Bowie, named after David Bowie. It is a tiny detail, but the kind of tiny detail the internet knows how to launch.
+      </p>
+
+      <h2>Then the signal goes to space.</h2>
+
+      <p>
+        David Bowie was already the perfect cultural bridge for this story. Starman, astronauts, Mars, alien glam, and songs about drifting beyond Earth were baked into his mythology long before the web turned every great image into a meme.
+      </p>
+
+      <div class="video-card">
+        <img src="assets/bowie-mission-pact.png" alt="Bowie mission scene with a rocket">
+        <div class="video-copy">
+          <b>External video: Falcon Heavy and the Roadster moment</b>
+          <p>The original article points readers toward the space-culture moment where a Tesla Roadster, Falcon Heavy, and David Bowie references became one global image.</p>
+          <a href="https://www.youtube.com/results?search_query=Falcon+Heavy+Tesla+Roadster+David+Bowie+Space+Oddity" target="_blank" rel="noopener">Open Video Source</a>
+        </div>
+      </div>
+
+      <p>
+        When SpaceX launched a Tesla Roadster on Falcon Heavy, the image felt like science fiction made public. The Roadster, the spacesuit, the soundtrack, and the phrase "Starman" all pulled David Bowie's orbit back into the conversation.
+      </p>
+
+      <figure>
+        <img src="assets/bowie-moon-proof-clean.png" alt="Bowie holding a flag on the Moon">
+        <figcaption>Bowie turns the same space-roadster mythology into a compact dog-lore visual.</figcaption>
+      </figure>
+
+      <p>
+        That is why Bowie works as a meme character. The dog is small, the story is oddly specific, and the surrounding references are huge: biography, family posts, music history, rockets, and one of the most replayed launch images of the internet era.
+      </p>
+
+      <h2>The long dog goes long.</h2>
+
+      <p>
+        $BOWIE compresses that whole chain into one clean idea: a dachshund with a space mission. It does not need a complicated backstory because the backstory already has its own gravity.
+      </p>
+
+      <figure>
+        <img src="assets/bowie-holder-dashboard-clean.png" alt="Bowie holding through a market dashboard">
+        <figcaption>Holder culture becomes part of the orbit: small legs, big mission, long ride.</figcaption>
+      </figure>
+
+      <p>
+        This version keeps the article focused on story and media flow, without platform chrome or mixed token notes. The project signal stays consistent with the main site.
+      </p>
+
+      <section class="token-note">
+        <h3>Token Signal</h3>
+        <div class="token-grid">
+          <div><span>Buy Tax</span><b>1%</b></div>
+          <div><span>Sell Tax</span><b>1%</b></div>
+          <div><span>SPCX Rewards</span><b>100%</b></div>
+        </div>
+      </section>
+
+    </article>
+
+    <div class="bottom-actions">
+      <a href="spcx-space-dog-landing.html">Back To Home</a>
+      <a href="spcx-space-dog-landing.html#how-to-buy">Buy $BOWIE</a>
+    </div>
+  </main>
+</body>
+</html>
