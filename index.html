@@ -241,6 +241,62 @@
       animation: fade-rise .68s ease forwards;
     }
 
+    @media (max-width: 480px) {
+      .site-nav-inner {
+        width: min(1180px, calc(100% - 24px)) !important;
+        gap: .5rem !important;
+      }
+
+      .site-brand {
+        min-width: 136px !important;
+        gap: .5rem !important;
+      }
+
+      .site-brand-mark {
+        height: 2rem !important;
+        width: 2rem !important;
+      }
+
+      .site-brand-title {
+        font-size: .875rem !important;
+        line-height: 1rem !important;
+      }
+
+      .site-brand-subtitle {
+        font-size: .6875rem !important;
+      }
+
+      .top-action {
+        min-height: 36px !important;
+        padding-left: .75rem !important;
+        padding-right: .75rem !important;
+        border-radius: 7px !important;
+        font-size: .75rem !important;
+      }
+
+      .top-buy-action {
+        min-height: 40px !important;
+        padding-left: .875rem !important;
+        padding-right: .875rem !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .site-brand {
+        min-width: 104px !important;
+      }
+
+      .site-brand-subtitle {
+        display: none !important;
+      }
+
+      .top-action {
+        padding-left: .625rem !important;
+        padding-right: .625rem !important;
+        font-size: .6875rem !important;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -266,14 +322,14 @@
 
   <nav class="sticky top-0 z-40 border-b border-white/10 bg-space/80 backdrop-blur-2xl">
     <div class="mission-progress absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-cyanline via-orbitorange to-redcore"></div>
-    <div class="mx-auto flex min-h-[76px] w-[min(1180px,calc(100%-40px))] flex-wrap items-center gap-4 py-3 md:flex-nowrap md:gap-6 md:py-0">
-      <a href="#top" aria-label="Bowie" class="flex min-w-[190px] items-center gap-3">
-        <span class="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-orbitorange/50 bg-black shadow-orangeglow">
+    <div class="site-nav-inner mx-auto flex min-h-[76px] w-[min(1180px,calc(100%-40px))] flex-wrap items-center gap-4 py-3 md:flex-nowrap md:gap-6 md:py-0">
+      <a href="#top" aria-label="Bowie" class="site-brand flex min-w-[190px] items-center gap-3">
+        <span class="site-brand-mark grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-orbitorange/50 bg-black shadow-orangeglow">
           <img class="h-full w-full object-cover" src="assets/bowie-logo.png" alt="Bowie logo">
         </span>
         <span>
-          <span class="block text-base font-extrabold leading-5">Bowie</span>
-          <span class="block text-xs text-slate-400">$BOWIE rewards SPCX</span>
+          <span class="site-brand-title block text-base font-extrabold leading-5">Bowie</span>
+          <span class="site-brand-subtitle block text-xs text-slate-400">$BOWIE rewards SPCX</span>
         </span>
       </a>
       <div class="order-3 flex w-full items-center justify-between gap-3 overflow-x-auto text-sm text-slate-200 md:order-none md:ml-auto md:w-auto md:justify-start md:gap-5">
@@ -283,8 +339,8 @@
         <a class="nav-link shrink-0 opacity-85 hover:opacity-100" href="#how-to-buy">How To Buy</a>
         <a class="nav-link shrink-0 opacity-85 hover:opacity-100" href="#community">Community</a>
       </div>
-      <a href="bowie-story.html" class="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-cyanline/30 bg-cyanline/[.06] px-4 text-sm font-extrabold text-cyanline hover:border-cyanline/60 hover:bg-cyanline/[.1]">Article</a>
-      <a href="#how-to-buy" class="cta-thrust ml-auto inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-orange-200/60 bg-gradient-to-br from-orbitorange via-redcore to-reddeep px-5 text-sm font-extrabold shadow-[0_14px_30px_rgba(255,36,56,.25)] md:ml-0">Buy $BOWIE</a>
+      <a href="bowie-story.html" class="top-action inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-cyanline/30 bg-cyanline/[.06] px-4 text-sm font-extrabold text-cyanline hover:border-cyanline/60 hover:bg-cyanline/[.1]">Article</a>
+      <a href="#how-to-buy" class="top-action top-buy-action cta-thrust ml-auto inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-orange-200/60 bg-gradient-to-br from-orbitorange via-redcore to-reddeep px-5 text-sm font-extrabold shadow-[0_14px_30px_rgba(255,36,56,.25)] md:ml-0">Buy $BOWIE</a>
     </div>
   </nav>
 
@@ -471,8 +527,8 @@
           <article class="reveal-item rounded-lg border border-white/10 bg-gradient-to-b from-panel/90 to-black/70 p-6 shadow-panel sm:p-8">
             <p class="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Join the mission feed for Elon-Bowie lore, Roadster orbit energy, SPCX reward updates, trading access, and official announcements.</p>
             <div class="mt-6 flex flex-wrap gap-3">
-              <a class="inline-flex min-h-11 items-center justify-center rounded-lg border border-orange-200/60 bg-gradient-to-br from-orbitorange via-redcore to-reddeep px-5 font-extrabold shadow-[0_14px_30px_rgba(255,36,56,.25)]" href="#">Telegram</a>
-              <a class="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/15 bg-white/[.06] px-5 font-extrabold text-slate-100" href="#">X</a>
+              <a class="inline-flex min-h-11 items-center justify-center rounded-lg border border-orange-200/60 bg-gradient-to-br from-orbitorange via-redcore to-reddeep px-5 font-extrabold shadow-[0_14px_30px_rgba(255,36,56,.25)]" href="https://t.me/Bowie_HQ_1" target="_blank" rel="noopener">Telegram</a>
+              <a class="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/15 bg-white/[.06] px-5 font-extrabold text-slate-100" href="https://x.com/bowie_HQ?s=20" target="_blank" rel="noopener">X</a>
               <a class="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/15 bg-white/[.06] px-5 font-extrabold text-slate-100" href="#">DexScreener</a>
             </div>
           </article>
